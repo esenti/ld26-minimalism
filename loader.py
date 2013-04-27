@@ -15,7 +15,7 @@ def load(name):
 		for item in o['pos'].iteritems():
 			rect.__setattr__(*item)
 
-		objects.append((sprites, rect))
+		objects.append((sprites, rect, [rect.x, rect.y]))
 
 
 	items = []
@@ -26,6 +26,6 @@ def load(name):
 		for item in i['pos'].iteritems():
 			rect.__setattr__(*item)
 
-		items.append((sprites, rect))
+		items.append((sprites, rect, [rect.x, rect.y]))
 
 	return objects, items
