@@ -54,11 +54,11 @@ while 1:
 	jumped = max(jumped - 0.1 * delta * 0.02, 0.0)
 
 	for o in objects:
-		if player_rect.bottom > (o[2][1] - dir_y) and player_rect.bottom <= o[1].top and player_rect.right > (o[2][0] - dir_x) and player_rect.left < (o[2][0] - dir_x + o[1].width):
+		if player_rect.bottom > (o[2].y - dir_y) and player_rect.bottom <= o[1].top and player_rect.right > (o[2].x - dir_x) and player_rect.left < (o[2].x - dir_x + o[1].width):
 			dir_y = 0
 			on_ground = True
 
-		if (((player_rect.left < (o[2][0] - dir_x + o[1].width) and player_rect.right > (o[2][0] - dir_x)) or (player_rect.left < (o[2][0] - dir_x + o[1].width and player_rect.right > (o[2][0] - dir_x)))) and (player_rect.top < int(o[2][1] - dir_y + o[1].height) and player_rect.bottom > int(o[2][1] - dir_y))):
+		if (((player_rect.left < (o[2].x - dir_x + o[1].width) and player_rect.right > (o[2].x - dir_x)) or (player_rect.left < (o[2].x - dir_x + o[1].width and player_rect.right > (o[2].x - dir_x)))) and (player_rect.top < int(o[2].y - dir_y + o[1].height) and player_rect.bottom > int(o[2].y - dir_y))):
 			dir_x = 0
 
 	for i in items:
@@ -67,16 +67,16 @@ while 1:
 			collected += 1
 			collect_sound.play()
 		else:
-			i[2][0] -= dir_x
-			i[2][1] -= dir_y
-			i[1].x = i[2][0]
-			i[1].y = i[2][1]
+			i[2].x -= dir_x
+			i[2].y -= dir_y
+			i[1].x = i[2].x
+			i[1].y = i[2].y
 
 	for o in objects:
-		o[2][0] -= dir_x
-		o[2][1] -= dir_y
-		o[1].x = o[2][0]
-		o[1].y = o[2][1]
+		o[2].x -= dir_x
+		o[2].y -= dir_y
+		o[1].x = o[2].x
+		o[1].y = o[2].y
 
 
 	bg_x -= 0.2 * dir_x

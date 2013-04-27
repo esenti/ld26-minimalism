@@ -1,6 +1,13 @@
 import imp
 import pygame
 
+
+class Point(object):
+	def __init__(self, x, y):
+		self.x = x
+		self.y = y
+
+
 def load(name):
 
 	fp, pathname, description = imp.find_module('maps/' + name)
@@ -15,7 +22,7 @@ def load(name):
 		for item in o['pos'].iteritems():
 			rect.__setattr__(*item)
 
-		objects.append((sprites, rect, [rect.x, rect.y]))
+		objects.append((sprites, rect, Point(rect.x, rect.y)))
 
 
 	items = []
@@ -26,6 +33,6 @@ def load(name):
 		for item in i['pos'].iteritems():
 			rect.__setattr__(*item)
 
-		items.append((sprites, rect, [rect.x, rect.y]))
+		items.append((sprites, rect, Point(rect.x, rect.y)))
 
 	return objects, items
