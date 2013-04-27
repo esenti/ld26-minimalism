@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+import loader
 
 pygame.init()
 
@@ -18,18 +19,11 @@ player_rect.midbottom = (320, 420)
 
 jumped = 0.0
 
-objects = []
+objects, items = loader.load('first')
 
-ground = pygame.image.load("assets/img/ground_1.png")
-ground_rect = ground.get_rect()
-ground_rect.bottom = 480
-
-objects.append((ground, ground_rect))
-
-platform = pygame.image.load("assets/img/platform_1.png")
-platform_rect = platform.get_rect()
-platform_rect.center = (200, 360)
-objects.append((platform, platform_rect))
+stage = 1
+eaten = 0
+needed = 3
 
 while 1:
 
@@ -50,15 +44,29 @@ while 1:
 			dir_y = 0
 			on_ground = True
 
+	for i in items:
+		if player_rect.colliderect(i[1]):
+			items.remove(i)
+			eaten += 1
+		else:
+			i[1].move_ip(-dir_x, -dir_y)
 
 	for o in objects:
 		o[1].move_ip(-dir_x, -dir_y)
 
-	screen.fill(bg_color)
 
+	if eaten == needed:
+		stage += 1
+		eaten = 0
+
+	# Drawing
+	screen.fill(bg_color)
 	screen.blit(player, player_rect)
 
 	for o in objects:
-		screen.blit(*o)
+		screen.blit(o[0][stage - 1], o[1])
+
+	for i in items:
+		screen.blit(i[0][stage - 1], i[1])
 
 	pygame.display.flip()
