@@ -10,6 +10,12 @@ objects = [
 		'pos': {
 			'center': (200, 360)
 		}
+	},
+	{
+		'name': 'left_wall',
+		'pos': {
+			'midright': (0, 360)
+		}
 	}
 ]
 
