@@ -36,16 +36,15 @@ objects = [
 		}
 	},
 	{
-		'name': 'ground',
+		'name': 'left_wall',
 		'pos': {
-			'bottom': -60,
-			'left': -10
+			'midright': (0, -400)
 		}
 	},
 	{
 		'name': 'ground',
 		'pos': {
-			'bottom': -300,
+			'bottom': -60,
 			'left': -10
 		}
 	},
