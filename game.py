@@ -21,12 +21,10 @@ class Game(object):
 		self.background_rect = self.background.get_rect()
 
 		self.levels = ['first', 'fourth', 'second', 'third']
-		#self.levels = ['fourth']
 
 		self.objects, self.items = loader.load(self.levels[0])
 
 		self.active = False
-
 
 
 	def enter(self, level=0):
