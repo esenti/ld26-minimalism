@@ -1,19 +1,5 @@
 objects = [
 	{
-		'name': 'ground',
-		'pos': {
-			'top': 460,
-			'left': -100
-		}
-	},
-	{
-		'name': 'ground',
-		'pos': {
-			'bottom': 0,
-			'left': -100
-		}
-	},
-	{
 		'name': 'platform',
 		'pos': {
 			'center': (200, 360)
@@ -32,6 +18,12 @@ objects = [
 		}
 	},
 	{
+		'name': 'platform',
+		'pos': {
+			'center': (900, 220)
+		}
+	},
+	{
 		'name': 'left_wall',
 		'pos': {
 			'midright': (0, 200)
@@ -40,7 +32,21 @@ objects = [
 	{
 		'name': 'left_wall',
 		'pos': {
-			'midleft': (1000, 200)
+			'midleft': (3000, 200)
+		}
+	},
+	{
+		'name': 'ground',
+		'pos': {
+			'bottom': -60,
+			'left': -10
+		}
+	},
+	{
+		'name': 'ground',
+		'pos': {
+			'top': 460,
+			'left': -10
 		}
 	},
 ]
@@ -85,14 +91,7 @@ items = [
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (400, 300)
-		}
-	},
-	{
-		'name': 'potato',
-		'type': 'consumable',
-		'pos': {
-			'center': (400, 400)
+			'center': (900, 180)
 		}
 	},
 	{
@@ -100,15 +99,15 @@ items = [
 		'type': 'exit',
 		'available': 3,
 		'pos': {
-			'midright': (7, 410)
+			'topright': (1100, 454)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'jump',
-		'available': 1,
+		'available': 2,
 		'pos': {
-			'midright': (100, 410)
+			'topright': (700, 440)
 		}
 	},
 ]
