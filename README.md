@@ -9,8 +9,9 @@ What?
 
 Controls
 ===
-*a*/*d* - move
-*w* - jump
-*r* - restart level
+
+*A* / *D* - move
+*W* - jump
+*R* - restart level
 *ESC* - go to menu
 *SPACE* - choose menu option
