@@ -24,6 +24,7 @@ class Menu(object):
 		self.hl_rect.center = (320, 360)
 
 		self.sound = pygame.mixer.Sound('assets/sound/menu.wav')
+		self.sound_select = pygame.mixer.Sound('assets/sound/menu_select.wav')
 
 		self.active = False
 
@@ -59,8 +60,10 @@ class Menu(object):
 					self.sound.play()
 				elif event.key == pygame.K_SPACE:
 					if self.highlighted == 0:
+						self.sound_select.play()
 						self.manager.set_scene('info')
 					if self.highlighted == 1:
+						self.sound_select.play()
 						sys.exit()
 
 					return True
@@ -76,7 +79,7 @@ class Info(object):
 		self.background_rect = self.background.get_rect()
 
 
-		self.sound = pygame.mixer.Sound('assets/sound/menu.wav')
+		self.sound = pygame.mixer.Sound('assets/sound/menu_select.wav')
 
 		self.active = False
 
@@ -98,6 +101,7 @@ class Info(object):
 		if self.active:
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_SPACE:
+					self.sound.play()
 					self.manager.set_scene('game')
 
 
@@ -111,7 +115,7 @@ class Won(object):
 		self.background_rect = self.background.get_rect()
 
 
-		self.sound = pygame.mixer.Sound('assets/sound/menu.wav')
+		self.sound = pygame.mixer.Sound('assets/sound/menu_select.wav')
 
 		self.active = False
 
@@ -133,6 +137,7 @@ class Won(object):
 		if self.active:
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_SPACE:
+					self.sound.play()
 					self.manager.set_scene('menu')
 
 					return True
