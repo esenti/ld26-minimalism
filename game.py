@@ -10,6 +10,7 @@ class Game(object):
 		self.collect_sound = pygame.mixer.Sound('assets/sound/collect.wav')
 		self.level_complete_sound = pygame.mixer.Sound('assets/sound/level_complete.wav')
 		self.jump_sound = pygame.mixer.Sound('assets/sound/jump.wav')
+		self.jump2_sound = pygame.mixer.Sound('assets/sound/jump2.wav')
 		self.stage_up_sound = pygame.mixer.Sound('assets/sound/stage_up.wav')
 		self.stage_down_sound = pygame.mixer.Sound('assets/sound/stage_down.wav')
 
@@ -19,16 +20,16 @@ class Game(object):
 		self.background = pygame.image.load("assets/img/background.png")
 		self.background_rect = self.background.get_rect()
 
-		self.levels = ['first', 'first']
+		self.levels = ['first', 'second']
 
 		self.objects, self.items = loader.load(self.levels[0])
 
 		self.active = False
 
-		self.level = 0
 
 
-	def enter(self):
+	def enter(self, level=0):
+		self.level = level
 		self.objects, self.items = loader.load(self.levels[self.level])
 
 		self.active = True
@@ -73,15 +74,14 @@ class Game(object):
 						self.initial = False
 					elif i.type == 'exit' and i.available <= self.stage:
 						self.level_complete_sound.play()
-						self.level += 1
-						if self.level < len(self.levels):
-							self.enter()
+						if self.level + 1 < len(self.levels):
+							self.enter(self.level + 1)
 						else:
-							self.manager.set_scene('menu')
+							self.manager.set_scene('won')
 					elif i.type == 'jump' and i.available <= self.stage and self.on_ground:
 						self.jumped = 5.0
 						self.on_ground = False
-						self.jump_sound.play()
+						self.jump2_sound.play()
 
 				if move:
 					i.move(-self.dir_x, -self.dir_y)
@@ -100,10 +100,9 @@ class Game(object):
 				self.stage += 1
 				self.collected = self.collected - self.needed
 			elif self.collected < 0:
-				self.stage_down_sound.play()
-				self.stage -= 1
-				if self.stage < 1:
-					self.manager.set_scene('menu')
+				if self.stage > 1:
+					self.stage_down_sound.play()
+					self.stage -= 1
 				self.collected = self.needed + self.collected
 
 			if not self.initial:
@@ -138,6 +137,6 @@ class Game(object):
 					self.jump_sound.play()
 				elif event.key == pygame.K_r:
 					self.objects, self.items = loader.load(self.levels[self.level])
-					self.enter()
+					self.enter(self.level)
 				elif event.key == pygame.K_ESCAPE:
 					self.manager.set_scene('menu')

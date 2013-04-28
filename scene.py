@@ -1,31 +1,37 @@
-from menu import Menu
+from menu import Menu, Info, Won
 from game import Game
 
 class SceneManager(object):
 	def __init__(self):
-		self.menu = Menu(self)
-		self.game = Game(self)
+
+		self.scenes = {
+			'menu': Menu(self),
+			'info': Info(self),
+			'game': Game(self),
+			'won': Won(self),
+		}
 
 
 	def update(self, delta):
-		self.menu.update(delta)
-		self.game.update(delta)
+		for k, v in self.scenes.iteritems():
+			v.update(delta)
 
 
 	def event(self, event):
-		self.menu.event(event)
-		self.game.event(event)
+		for k, v in self.scenes.iteritems():
+			r = v.event(event)
+			if r:
+		 		break
 
 
 	def draw(self, screen):
-		self.menu.draw(screen)
-		self.game.draw(screen)
+		for k, v in self.scenes.iteritems():
+			v.draw(screen)
 
 
 	def set_scene(self, scene):
-		if scene == 'menu':
-			self.game.leave()
-			self.menu.enter()
-		elif scene == 'game':
-			self.menu.leave()
-			self.game.enter()
+		for k, v in self.scenes.iteritems():
+			if k != scene:
+				v.leave()
+
+		self.scenes[scene].enter()
