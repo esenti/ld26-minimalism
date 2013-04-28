@@ -32,10 +32,11 @@ jumped = 0.0
 objects, items = loader.load('first')
 
 stage = 1
-collected = 0
-needed = 3
+collected = 0.0
+needed = 300.0
 
 prev_time = pygame.time.get_ticks()
+initial = True
 
 while 1:
 
@@ -48,12 +49,12 @@ while 1:
 			sys.exit()
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_w and on_ground:
-				jumped = 3.0
+				jumped = 4.0
 				on_ground = False
 				jump_sound.play()
 
 	dir_x = 0.3 * delta * (int(pygame.key.get_pressed()[pygame.K_d]) - int(pygame.key.get_pressed()[pygame.K_a]))
-	dir_y = 0.2 * delta * (1 - jumped if int(1 - jumped) != 0 else 1)
+	dir_y = 0.2 * delta * (2 - jumped if int(2 - jumped) != 0 else 2)
 	jumped = max(jumped - (0.1 * delta * 0.025), 0.0)
 
 
@@ -71,12 +72,17 @@ while 1:
 		if player_rect.colliderect(i.rect):
 			if i.type == 'consumable':
 				items.remove(i)
-				collected += 1
+				collected += 100.0
 				collect_sound.play()
 				move = False
+				initial = False
 			elif i.type == 'exit' and i.available <= stage:
 				print 'Gz!'
 				level_complete_sound.play()
+			elif i.type == 'jump' and i.available <= stage and on_ground:
+				jumped = 5.0
+				on_ground = False
+				jump_sound.play()
 
 		if move:
 			i.move(-dir_x, -dir_y)
@@ -90,9 +96,16 @@ while 1:
 	background_rect.x = bg_x
 	background_rect.y = bg_y
 
-	if collected == needed:
+	if collected >= needed:
 		stage += 1
-		collected = 0
+		collected = collected - needed
+	elif collected < 0:
+		stage -= 1
+		collected = needed + collected
+
+	if not initial:
+		collected -= delta * 0.01
+
 
 	# Drawing
 	screen.fill(bg_color)
@@ -107,7 +120,8 @@ while 1:
 
 	# Progress bar
 	pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(10, 10, 620, 20))
-	w = (float(collected) / float(needed)) * 612
-	pygame.draw.rect(screen, (220, 220, 220), pygame.Rect(14, 14, w, 12))
+	w = (float(collected) / float(needed)) * (width - 28)
+	if w:
+		pygame.draw.rect(screen, (220, 220, 220), pygame.Rect(14, 14, w, 12))
 
 	pygame.display.flip()

@@ -103,4 +103,12 @@ items = [
 			'midright': (7, 410)
 		}
 	},
+	{
+		'name': 'potato',
+		'type': 'jump',
+		'available': 1,
+		'pos': {
+			'midright': (100, 410)
+		}
+	},
 ]
