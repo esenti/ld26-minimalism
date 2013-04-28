@@ -15,6 +15,8 @@ pygame.display.set_caption('LD26 - Minimalism')
 screen = pygame.display.set_mode(size)
 
 collect_sound = pygame.mixer.Sound('assets/sound/collect.wav')
+level_complete_sound = pygame.mixer.Sound('assets/sound/level_complete.wav')
+jump_sound = pygame.mixer.Sound('assets/sound/jump.wav')
 
 player = pygame.transform.scale(pygame.image.load("assets/img/player_1.png"), (36, 80))
 player_rect = player.get_rect();
@@ -48,32 +50,39 @@ while 1:
 			if event.key == pygame.K_w and on_ground:
 				jumped = 3.0
 				on_ground = False
+				jump_sound.play()
 
-	dir_x = 0.2 * delta * (int(pygame.key.get_pressed()[pygame.K_d]) - int(pygame.key.get_pressed()[pygame.K_a]))
+	dir_x = 0.3 * delta * (int(pygame.key.get_pressed()[pygame.K_d]) - int(pygame.key.get_pressed()[pygame.K_a]))
 	dir_y = 0.2 * delta * (1 - jumped if int(1 - jumped) != 0 else 1)
-	jumped = max(jumped - 0.1 * delta * 0.02, 0.0)
+	jumped = max(jumped - (0.1 * delta * 0.025), 0.0)
 
-	for o in objects:
-		if player_rect.bottom > (o.pos.y - dir_y) and player_rect.bottom <= o.rect.top and player_rect.right > (o.pos.x - dir_x) and player_rect.left < (o.pos.x - dir_x + o.rect.width):
+
+	on_ground = False
+	for obj in objects:
+		if player_rect.bottom > (obj.pos.y - dir_y) and player_rect.bottom <= obj.rect.top and player_rect.right > (obj.pos.x - dir_x) and player_rect.left < (obj.pos.x - dir_x + obj.rect.width):
 			dir_y = 0
 			on_ground = True
 
-		if (((player_rect.left < (o.pos.x - dir_x + o.rect.width) and player_rect.right > (o.pos.x - dir_x)) or (player_rect.left < (o.pos.x - dir_x + o.rect.width and player_rect.right > (o.pos.x - dir_x)))) and (player_rect.top < int(o.pos.y - dir_y + o.rect.height) and player_rect.bottom > int(o.pos.y - dir_y))):
+		if (((player_rect.left < (obj.pos.x - dir_x + obj.rect.width) and player_rect.right > (obj.pos.x - dir_x)) or (player_rect.left < (obj.pos.x - dir_x + obj.rect.width and player_rect.right > (obj.pos.x - dir_x)))) and (player_rect.top < int(obj.pos.y - dir_y + obj.rect.height) and player_rect.bottom > int(obj.pos.y - dir_y))):
 			dir_x = 0
 
 	for i in items:
-		if player_rect.colliderect(i[1]):
-			items.remove(i)
-			collected += 1
-			collect_sound.play()
-		else:
-			i[2].x -= dir_x
-			i[2].y -= dir_y
-			i[1].x = i[2].x
-			i[1].y = i[2].y
+		move = True
+		if player_rect.colliderect(i.rect):
+			if i.type == 'consumable':
+				items.remove(i)
+				collected += 1
+				collect_sound.play()
+				move = False
+			elif i.type == 'exit' and i.available <= stage:
+				print 'Gz!'
+				level_complete_sound.play()
 
-	for o in objects:
-		o.move(-dir_x, -dir_y)
+		if move:
+			i.move(-dir_x, -dir_y)
+
+	for obj in objects:
+		obj.move(-dir_x, -dir_y)
 
 
 	bg_x -= 0.2 * dir_x
@@ -94,7 +103,7 @@ while 1:
 		screen.blit(o.sprites[stage - 1], o.rect)
 
 	for i in items:
-		screen.blit(i[0][stage - 1], i[1])
+		screen.blit(i.sprites[stage - 1], i.rect)
 
 	# Progress bar
 	pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(10, 10, 620, 20))
