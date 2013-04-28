@@ -3,8 +3,10 @@ Rect
 
 A game made for Ludum Date 26 (theme: *Minimalism*)
 
-What?
+Requirements
 ===
+
+Python + PyGame
 
 
 Controls

@@ -45,6 +45,13 @@ objects = [
 	{
 		'name': 'ground',
 		'pos': {
+			'bottom': -300,
+			'left': -10
+		}
+	},
+	{
+		'name': 'ground',
+		'pos': {
 			'top': 460,
 			'left': -10
 		}

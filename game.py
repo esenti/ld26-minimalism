@@ -20,8 +20,8 @@ class Game(object):
 		self.background = pygame.image.load("assets/img/background.png")
 		self.background_rect = self.background.get_rect()
 
-		# self.levels = ['first', 'second', 'third']
-		self.levels = ['third']
+		self.levels = ['first', 'fourth', 'second', 'third']
+		#self.levels = ['fourth']
 
 		self.objects, self.items = loader.load(self.levels[0])
 

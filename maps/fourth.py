@@ -2,31 +2,25 @@ objects = [
 	{
 		'name': 'platform',
 		'pos': {
-			'center': (100, 350)
+			'center': (600, 350)
 		}
 	},
 	{
 		'name': 'platform',
 		'pos': {
-			'center': (300, 350)
+			'center': (800, 250)
 		}
 	},
 	{
 		'name': 'platform',
 		'pos': {
-			'center': (500, 350)
+			'center': (600, 150)
 		}
 	},
 	{
 		'name': 'platform',
 		'pos': {
-			'center': (300, 200)
-		}
-	},
-	{
-		'name': 'platform',
-		'pos': {
-			'center': (500, 200)
+			'center': (800, 50)
 		}
 	},
 	{
@@ -38,14 +32,13 @@ objects = [
 	{
 		'name': 'left_wall',
 		'pos': {
-			'midleft': (1200, 200)
+			'midright': (0, -400)
 		}
 	},
 	{
-		'name': 'ground',
+		'name': 'left_wall',
 		'pos': {
-			'bottom': -100,
-			'left': -10
+			'midleft': (1200, 200)
 		}
 	},
 	{
@@ -69,49 +62,42 @@ items = [
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (100, 300)
+			'center': (110, 200)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (300, 300)
+			'center': (110, 150)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (500, 300)
+			'center': (110, 100)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (300, 150)
+			'center': (600, 100)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (500, 150)
+			'center': (800, 0)
 		}
 	},
 	{
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (800, 150)
-		}
-	},
-	{
-		'name': 'potato',
-		'type': 'consumable',
-		'pos': {
-			'center': (850, 230)
+			'center': (800, 200)
 		}
 	},
 	{
@@ -119,7 +105,7 @@ items = [
 		'type': 'exit',
 		'available': 3,
 		'pos': {
-			'bottomright': (300, 490)
+			'bottomright': (420, 490)
 		}
 	},
 	{

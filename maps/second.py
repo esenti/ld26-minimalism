@@ -45,6 +45,13 @@ objects = [
 	{
 		'name': 'ground',
 		'pos': {
+			'bottom': -300,
+			'left': -10
+		}
+	},
+	{
+		'name': 'ground',
+		'pos': {
 			'top': 460,
 			'left': -10
 		}
@@ -56,7 +63,7 @@ items = [
 		'name': 'potato',
 		'type': 'consumable',
 		'pos': {
-			'center': (600, 390)
+			'center': (600, 420)
 		}
 	},
 	{
