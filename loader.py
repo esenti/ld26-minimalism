@@ -1,7 +1,6 @@
 import imp
 import pygame
 
-
 class Point(object):
 	def __init__(self, x, y):
 		self.x = x
@@ -37,7 +36,7 @@ class Item(object):
 
 def load(name):
 
-	fp, pathname, description = imp.find_module('maps/' + name)
+	fp, pathname, description = imp.find_module(name, ['maps'])
 	level = imp.load_module('maps/' + name, fp, pathname, description)
 
 	objects = []
